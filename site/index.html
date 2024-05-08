@@ -13,9 +13,7 @@
     <script src="util.js"></script>
     <script src="settings.js"></script>
     <script src="twitch.js"></script>
-    <script src="hitbox.js"></script>
     <script src="nico.js"></script>
-    <script src="cavetube.js"></script>
     <script src="main.js"></script>
     
     <link rel="stylesheet"
@@ -65,7 +63,7 @@
       
       <div id="footer">
         This page is open source on
-        <a href="https://github.com/yoshifan/multisite-streams-page"
+        <a href="https://github.com/aaw4421/multisite-streams-page"
           target="_blank">GitHub</a>.
       </div>
     </div>
@@ -76,9 +74,7 @@
       
         <ul>
           <li><a href="#settings-main">Main</a></li>
-          <li><a href="#settings-twitchhitbox">Hitbox</a></li>
           <li><a href="#settings-nico">Nicovideo</a></li>
-          <li><a href="#settings-cavetube">Cavetube</a></li>
         </ul>
         
         <div id="settings-main">
@@ -87,17 +83,9 @@
                    title="Include twitch.tv in listing"/>
             <label for="field-twitchEnabled">Twitch</label>
             
-            <input type="checkbox" name="hitboxEnabled" id="field-hitboxEnabled"
-                   title="Include hitbox.tv in listing"/>
-            <label for="field-hitboxEnabled">Hitbox</label>
-            
             <input type="checkbox" name="nicoEnabled" id="field-nicoEnabled"
                    title="Include nicovideo.jp in listing"/>
             <label for="field-nicoEnabled">Nicovideo</label>
-            
-            <input type="checkbox" name="cavetubeEnabled" id="field-cavetubeEnabled"
-                   title="Include gae.cavelis.net in listing"/>
-            <label for="field-cavetubeEnabled">Cavetube</label>
           </div>
           
           <div>
@@ -116,14 +104,6 @@
             <option value="viewersAsc">Viewers, lowest first</option>
             <option value="uptimeAsc">Uptime, shortest first</option>
             <option value="uptimeDesc">Uptime, longest first</option>
-          </select>
-          </div>
-          
-          <div>
-          <label for="field-sortHosts">Sort hosts by: </label>
-          <select name="sortHosts" id="field-sortHosts">
-            <option value="viewersDesc">Viewers, highest first</option>
-            <option value="viewersAsc">Viewers, lowest first</option>
           </select>
           </div>
           
@@ -175,23 +155,6 @@
             <span id="sectionOrder-3-text" class="sectionOrder-text"></span>
             <input type="hidden" id="field-sectionOrder-3" />
           </div>
-          </div>
-        </div>
-        
-        <div id="settings-twitchhitbox">
-          <div>
-          <label for="field-hitboxUsername">Hitbox username: </label>
-          <input type="text" name="hitboxUsername" id="field-hitboxUsername" size="12" />
-          </div>
-          
-          <div>
-          <label for="field-hitboxThumbnailServer">Hitbox thumbnail server: </label>
-          <select name="hitboxThumbnailServer" id="field-hitboxThumbnailServer">
-            <option value="bf">edge.bf.hitbox.tv</option>
-            <option value="fra">edge.fra.hitbox.tv</option>
-            <option value="sf">edge.sf.hitbox.tv</option>
-            <option value="vie">edge.vie.hitbox.tv</option>
-          </select>
           </div>
         </div>
         
@@ -268,37 +231,7 @@
             For now, only Nico streams are supported, not videos.
           </div>
         </div>
-        
-        <div id="settings-cavetube">
-          <div>Users to watch for
-            (<span id="cavetube-user-count">0</span>):</div>
-          <div id="confirm-cavetubeUsers">
-            <div id="cavetubeUsers-table-container"></div>
-            <button id="edit-button-cavetubeUsers" type="button">
-              Edit</button>
-          </div>
-          <div id="edit-cavetubeUsers" style="display:none;">
-            <div>
-              <textarea id="textarea-cavetubeUsers">
-                </textarea>
-            </div>
-            <div class="help-text">
-              Type one Cavetube username per line.
-            </div>
-            <div>
-              <button id="confirm-button-cavetubeUsers" type="button">
-                Confirm</button>
-            </div>
-          </div>
-          <br /><br />
-          
-          <div class="help-text">
-            For now, only Cavetube streams are supported, not videos.
-          </div>
-        </div>
-        
       </div>
-      
     </div>
     
     

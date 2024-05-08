@@ -8,9 +8,7 @@ var Settings = {
     
     defaults: {
         'twitchEnabled': true,
-        'hitboxEnabled': true,
         'nicoEnabled': false,
-        'cavetubeEnabled': false,
         'gameDisplay': 'boximage',
         'sortStreams': 'viewersDesc',
         'sortHosts': 'viewersDesc',
@@ -19,14 +17,8 @@ var Settings = {
         'videoLimit': 30,
         'videoType': 'highlight',
         'sectionOrder': ['streams', 'hosts', 'games', 'videos'],
-        
-        'hitboxUsername': '',
-        'hitboxThumbnailServer': 'vie',
-        
         'nicoCommunities': [],
-        'nicoSearchKeywords': 'rta, 練習+ゲーム',
-        
-        'cavetubeUsers': []
+        'nicoSearchKeywords': 'rta, 練習+ゲーム'
     },
     
     fieldTypes: ['input', 'select', 'textarea'],
@@ -35,13 +27,11 @@ var Settings = {
     // stored somewhere other than an input field
     sectionOrder: null,
     nicoCommunities: null,
-    cavetubeUsers: null,
     
     $container: null,
     
     mainTabInitialized: false,
     nicoTabInitialized: false,
-    cavetubeTabInitialized: false,
     
     sectionNames: {
         streams: "Streams",
@@ -126,7 +116,7 @@ var Settings = {
         var storageNeedsUpdate = false;
         
         settingsKeys.forEach(function(key) {
-            if (localStorage.hasOwnProperty(key)) {
+            if (localStorage.hasOwnProperty(key) && !isNaN(localStorage.getItem(key))) {
                 // Use JSON.parse since local storage can only have strings,
                 // while our settings can be in any format.
                 Settings.setInField(key, JSON.parse(localStorage[key]));
@@ -288,12 +278,6 @@ var Settings = {
                     if (!Settings.nicoTabInitialized) {
                         Nico.initSettings();
                         Settings.nicoTabInitialized = true;
-                    }
-                }
-                else if (ui.newTab.context.hash === '#settings-cavetube') {
-                    if (!Settings.cavetubeTabInitialized) {
-                        Cavetube.initSettings();
-                        Settings.cavetubeTabInitialized = true;
                     }
                 }
             }

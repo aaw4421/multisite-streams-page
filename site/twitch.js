@@ -1,6 +1,7 @@
 var Twitch = (function() {
     
     var twitchOAuth2Token = null;
+    var tokenScopes = "user:read:follows"
     
     var username = null;
     
@@ -63,13 +64,13 @@ var Twitch = (function() {
             var redirectUri = window.location;
             
             var authUrl =
-                'https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id='
+                'https://id.twitch.tv/oauth2/authorize?response_type=token&client_id='
                 + clientId
                 + '&redirect_uri='
                 + redirectUri;
             
             // Permission scopes required by our API calls.
-            authUrl += '&scope=user_read';
+            authUrl += '&scope=' + encodeURIComponent(tokenScopes);
         
             // Redirect to the authentication URL.
             window.location = authUrl;

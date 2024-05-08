@@ -1,6 +1,5 @@
 // API references:
 // https://github.com/justintv/Twitch-API/blob/master/README.md
-// http://developers.hitbox.tv/
 //
 // The following Javascript module pattern is from:
 // http://stackoverflow.com/a/1479341
@@ -12,12 +11,10 @@ var Main = (function() {
     var mediaElementArrays = {};
     var mediaObjArrays = {};
     
-    var SITE_NAMES = ['Twitch', 'Hitbox', 'Nico', 'Cavetube'];
+    var SITE_NAMES = ['Twitch', 'Nico'];
     var SITE_NAMES_TO_MODULES = {
         'Twitch': Twitch,
-        'Hitbox': Hitbox,
-        'Nico': Nico,
-        'Cavetube': Cavetube
+        'Nico': Nico
     };
     var mediaTypesToSites = null;
     
@@ -27,14 +24,8 @@ var Main = (function() {
         if (siteName === 'Twitch') {
             return Settings.get('twitchEnabled');
         }
-        else if (siteName === 'Hitbox') {
-            return Settings.get('hitboxEnabled');
-        }
         else if (siteName === 'Nico') {
             return Settings.get('nicoEnabled');
-        }
-        else if (siteName === 'Cavetube') {
-            return Settings.get('cavetubeEnabled');
         }
     }
     
@@ -184,14 +175,8 @@ var Main = (function() {
         if (obj.site === 'Twitch') {
             $thumbnailCtnr.addClass('twitch');
         }
-        else if (obj.site === 'Hitbox') {
-            $thumbnailCtnr.addClass('hitbox');
-        }
         else if (obj.site === 'Nico') {
             $thumbnailCtnr.addClass('nico');
-        }
-        else if (obj.site === 'Cavetube') {
-            $thumbnailCtnr.addClass('cavetube');
         }
         
         var $thumbnail = $('<img>');
@@ -246,14 +231,8 @@ var Main = (function() {
         if (obj.site === 'Twitch') {
             $siteIndicator.addClass('twitch');
         }
-        else if (obj.site === 'Hitbox') {
-            $siteIndicator.addClass('hitbox');
-        }
         else if (obj.site === 'Nico') {
             $siteIndicator.addClass('nico');
-        }
-        else if (obj.site === 'Cavetube') {
-            $siteIndicator.addClass('cavetube');
         }
         $textContainer.append($siteIndicator);
     }
@@ -308,7 +287,7 @@ var Main = (function() {
             addMediaThumbnail(obj, $thumbnailCtnr);
             
             var $title = $('<div>');
-            // Hitbox streams may have no title.
+
             $title.text(obj.streamTitle || "(No title)");
             $streamE.append($title);
             
@@ -410,7 +389,7 @@ var Main = (function() {
             $hostE.append($hostingText);
             
             var $title = $('<div>');
-            // Hitbox streams may have no title.
+
             $title.text(obj.streamTitle || "(No title)");
             $title.attr('class', 'minor-text');
             $hostE.append($title);
@@ -665,10 +644,10 @@ var Main = (function() {
             // Track which sites will provide what kinds of media types.
             mediaTypesToSites = {};
             var mediaTypesToSiteNames = {
-                'streams': ['Twitch', 'Hitbox', 'Nico', 'Cavetube'],
+                'streams': ['Twitch', 'Nico'],
                 'hosts': ['Twitch'],
                 'games': ['Twitch'],
-                'videos': ['Twitch', 'Hitbox']
+                'videos': ['Twitch']
             };
             $.each(mediaTypesToSiteNames, function(mediaType, siteStrs){
                 mediaTypesToSites[mediaType] = [];
