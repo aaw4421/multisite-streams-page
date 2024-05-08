@@ -11,12 +11,10 @@ var Settings = {
         'nicoEnabled': false,
         'gameDisplay': 'boximage',
         'sortStreams': 'viewersDesc',
-        'sortHosts': 'viewersDesc',
         'sortGames': 'viewersDesc',
-        'mergeHosts': true,
         'videoLimit': 30,
         'videoType': 'highlight',
-        'sectionOrder': ['streams', 'hosts', 'games', 'videos'],
+        'sectionOrder': ['streams', 'games', 'videos'],
         'nicoCommunities': [],
         'nicoSearchKeywords': 'rta, 練習+ゲーム'
     },
@@ -35,7 +33,6 @@ var Settings = {
     
     sectionNames: {
         streams: "Streams",
-        hosts: "Hosts",
         games: "Games",
         videos: "Videos"
     },

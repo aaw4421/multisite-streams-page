@@ -3,7 +3,8 @@ var Twitch = (function() {
     var twitchOAuth2Token = null;
     var tokenScopes = "user:read:follows"
     
-    var username = null;
+    var clientId;
+    var userID = null;
     
     var errorIndicator = "There was an error previously";
     
@@ -28,6 +29,8 @@ var Twitch = (function() {
         Return true if we're redirecting, false otherwise.
         */
         
+        clientId = Config.clientId;
+
         var urlSearchArgs = window.location.search.substr(1).split("&");
         if (urlSearchArgs.indexOf('error=redirect_mismatch') !== -1) {
             // OAuth failed because we didn't give the exact URI that
@@ -59,7 +62,6 @@ var Twitch = (function() {
             // Config = {
             //     clientId: "abc1def2ghi3jkl4mno5pqr6stu7vw"
             // };
-            var clientId = Config.clientId;
             
             var redirectUri = window.location;
             
@@ -163,34 +165,38 @@ var Twitch = (function() {
     }
     
     
-    
+    /*
     function setAjaxHeader(xhr) {
-        // API version
-        xhr.setRequestHeader('Accept', 'application/vnd.twitchtv.v3+json');
+        xhr.setRequestHeader('Client-Id', clientId);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + twitchOAuth2Token);
     }
-    
+    */
+
     function ajaxRequest(url, params, callback) {
         incTotalRequests();
         
         var data = params;
-        data.oauth_token = twitchOAuth2Token;
-        
+        console.log(clientId);
+
         // Apparently Twitch does not support CORS:
         // https://github.com/justintv/Twitch-API/issues/133
         // So we must use JSONP.
         $.ajax({
             url: url,
             type: 'GET',
+            headers: {
+                "Client-Id": clientId,
+                "Authorization": "Bearer " + twitchOAuth2Token
+            },
             data: data,
-            dataType: 'jsonp',
+            
             success: Util.curry(
                 function(callback_, response){
                     callback_(response);
                     incCompletedRequests();
                 },
                 callback
-            ),
-            beforeSend: setAjaxHeader
+            )
         });
     }
     
@@ -207,16 +213,16 @@ var Twitch = (function() {
     
     
     
-    function getUsername() {
+    function getUserID() {
         if (twitchOAuth2Token === errorIndicator) {
-            setUsername(errorIndicator);
+            setUserID(errorIndicator);
             return;
         }
         
         // Apparently Twitch does not support CORS:
         // https://github.com/justintv/Twitch-API/issues/133
         // So we must use JSONP.
-        ajaxRequest('https://api.twitch.tv/kraken', {}, setUsername);
+        ajaxRequest('https://api.twitch.tv/helix/users', {}, setUserID);
     }
     
     function getStreams() {
@@ -224,14 +230,15 @@ var Twitch = (function() {
             setStreams(errorIndicator);
             return;
         }
-        
+
         ajaxRequest(
-            'https://api.twitch.tv/kraken/streams/followed',
-            {'limit': TWITCH_STREAM_LIMIT},
+            'https://api.twitch.tv/helix/streams/followed',
+            {'first': TWITCH_STREAM_LIMIT, "user_id": userID},
             setStreams
         );
     }
     
+    /*
     function getVideos() {
         if (twitchOAuth2Token === errorIndicator) {
             setVideos(errorIndicator);
@@ -239,7 +246,7 @@ var Twitch = (function() {
         }
         
         ajaxRequest(
-            'https://api.twitch.tv/kraken/videos/followed',
+            'https://api.twitch.tv/helix/videos/followed',
             {
                 'limit': Settings.get('videoLimit'),
                 'broadcast_type': Settings.get('videoType')
@@ -247,54 +254,45 @@ var Twitch = (function() {
             setVideos
         );
     }
+    */
     
     
-    
-    function setUsername(userResponse) {
+    function setUserID(userResponse) {
         if (userResponse === errorIndicator) {
-            username = errorIndicator;
+            userID = errorIndicator;
             return;
         }
         
+        /*
         if (userResponse.token.valid === false) {
             // Authentication failed.
             //
             // How to test: Type garbage after "access_token=".
             onAuthFail();
-            username = errorIndicator;
+            userID = errorIndicator;
             return;
         }
+        */
+
         onAuthSuccess();
         
-        username = userResponse.token.user_name;
+        userID = userResponse.data[0].id;
         
+        getStreams();
+        /*
         getHosts();
-        getGames();
-    }
-    
-    function getHosts() {
-        if (username === errorIndicator) {
-            setHosts(errorIndicator);
-            return;
-        }
-        
-        var url =
-            'https://api.twitch.tv/api/users/'
-            + username
-            + '/followed/hosting';
-        
-        ajaxRequest(url, {'limit': TWITCH_HOST_LIMIT}, setHosts);
+        getGames();*/
     }
     
     function getGames() {
-        if (username === errorIndicator) {
+        if (userID === errorIndicator) {
             setGames(errorIndicator);
             return;
         }
         
         var url =
             'https://api.twitch.tv/api/users/'
-            + username
+            + userID
             + '/follows/games/live';
         
         ajaxRequest(url, {'limit': TWITCH_GAME_LIMIT}, setGames);
@@ -319,7 +317,7 @@ var Twitch = (function() {
         }
         else {
             onAuthSuccess();
-            followedStreams = streamsResponse.streams;
+            followedStreams = streamsResponse.data;
         }
         
         // Stream response examples:
@@ -339,31 +337,30 @@ var Twitch = (function() {
             // channel.url, channel.game, and channel.status.
             // So we have backup values for each of those fields.
             
-            streamDict.channelLink = stream.channel.url
-              || 'http://www.twitch.tv/' + stream.channel.name;
+            streamDict.channelLink = 'http://www.twitch.tv/' + stream.user_login;
               
-            streamDict.thumbnailUrl = stream.preview.medium;
+            streamDict.thumbnailUrl = stream.thumbnail_url.replace("{width}", "240").replace("{height}", "135");
             
-            streamDict.streamTitle = stream.channel.status
+            streamDict.streamTitle = stream.title
               || "(Failed to load title)";
             
-            if (stream.channel.game || stream.game) {
-                streamDict.gameName = stream.channel.game || stream.game;
+            if (stream.game_id || stream.game_name) {
+                streamDict.gameName = stream.game_name
                 streamDict.gameLink = 'http://www.twitch.tv/directory/game/'
-                    + stream.channel.game;
+                    + stream.game_name;
                 // If the image doesn't exist then it'll give us
                 // ttv-static/404_boxart-138x190.jpg automatically
                 // (without us having to specify that).
                 streamDict.gameImage = "http://static-cdn.jtvnw.net/ttv-boxart/"
-                    + stream.channel.game + "-138x190.jpg";
+                    + stream.game_name + "-138x190.jpg";
             }
             else {
                 streamDict.gameName = null;
             }
             
-            streamDict.viewCount = stream.viewers;
-            streamDict.channelName = stream.channel.display_name;
-            streamDict.startDate = dateStrToObj(stream.created_at);
+            streamDict.viewCount = stream.viewer_count;
+            streamDict.channelName = stream.user_name;
+            streamDict.startDate = dateStrToObj(stream.started_at);
             streamDict.site = 'Twitch';
             
             twitchStreamDicts.push(streamDict);
@@ -436,52 +433,6 @@ var Twitch = (function() {
         Main.addVideos(twitchVideoDicts);
     }
     
-    function setHosts(hostsResponse) {
-        var followedHosts;
-        
-        if (hostsResponse === errorIndicator) {
-            followedHosts = [];
-        }
-        else {
-            followedHosts = hostsResponse.hosts;
-        }
-        
-        var hostDicts = [];
-        
-        var i;
-        for (i = 0; i < followedHosts.length; i++) {
-            
-            var host = followedHosts[i];
-            
-            var hostDict = {};
-            
-            hostDict.site = 'Twitch';
-            hostDict.hosterName = host.display_name;
-            hostDict.streamerName = host.target.channel.display_name;
-            hostDict.channelLink = 'http://www.twitch.tv/' + host.name;
-            hostDict.thumbnailUrl = host.target.preview;
-            hostDict.viewCount = host.target.viewers;
-            hostDict.streamTitle = host.target.title;
-            
-            if (host.target.meta_game) {
-                hostDict.gameName = host.target.meta_game;
-                hostDict.gameLink = 'http://www.twitch.tv/directory/game/'
-                    + host.target.meta_game
-                // If the image doesn't exist then it'll give us
-                // a "?" 404 boxart automatically.
-                hostDict.gameImage = 'http://static-cdn.jtvnw.net/ttv-boxart/'
-                    + host.target.meta_game + '-138x190.jpg';
-            }
-            else {
-                hostDict.gameName = null;
-            }
-            
-            hostDicts.push(hostDict);
-        }
-        
-        Main.addHosts(hostDicts);
-    }
-    
     function setGames(gamesResponse) {
         var followedGames;
         
@@ -527,9 +478,9 @@ var Twitch = (function() {
             return setOAuth2Token();
         },
         startGettingMedia: function() {
+            getUserID();
             getStreams();
-            getUsername();
-            getVideos();
+            //getVideos();
         },
         requestsAreDone: function() {
             return requestsAreDone();
