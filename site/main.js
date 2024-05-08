@@ -2,7 +2,7 @@
 // https://github.com/justintv/Twitch-API/blob/master/README.md
 //
 // The following Javascript module pattern is from:
-// http://stackoverflow.com/a/1479341
+// https://stackoverflow.com/a/1479341
 
 var Main = (function() {
     

@@ -7,8 +7,8 @@
     <title>Multi-site Stream Listing</title>
     <meta charset="utf-8" />
     
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
     <script src="config.js"></script>
     <script src="util.js"></script>
     <script src="settings.js"></script>
@@ -16,10 +16,8 @@
     <script src="nico.js"></script>
     <script src="main.js"></script>
     
-    <link rel="stylesheet"
-          href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
-    <link rel="stylesheet" type="text/css" media="screen"
-          href="main.css" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css"/>
     
   </head>
   
@@ -42,16 +40,6 @@
         <div id="streams-section">
           <h2 class="section-header">LIVE STREAMS</h2>
           <div id="streams" class="media-container"></div>
-        </div>
-      
-        <div id="games-section">
-          <h2 class="section-header">LIVE GAMES</h2>
-          <div id="games" class="media-container"></div>
-        </div>
-      
-        <div id="videos-section">
-          <h2 class="section-header">RECENT VIDEOS</h2>
-          <div id="videos" class="media-container"></div>
         </div>
       
       </div>
@@ -84,72 +72,22 @@
           </div>
           
           <div>
-          <label for="field-gameDisplay">Game display: </label>
-          <select name="gameDisplay" id="field-gameDisplay">
-            <option value="boximage">Box image</option>
-            <option value="name">Name</option>
-            <option value="none">None</option>
-          </select>
+            <label for="field-gameDisplay">Game display: </label>
+            <select name="gameDisplay" id="field-gameDisplay">
+              <option value="boximage">Box image</option>
+              <option value="name">Name</option>
+              <option value="none">None</option>
+            </select>
           </div>
           
           <div>
-          <label for="field-sortStreams">Sort streams by: </label>
-          <select name="sortStreams" id="field-sortStreams">
-            <option value="viewersDesc">Viewers, highest first</option>
-            <option value="viewersAsc">Viewers, lowest first</option>
-            <option value="uptimeAsc">Uptime, shortest first</option>
-            <option value="uptimeDesc">Uptime, longest first</option>
-          </select>
-          </div>
-          
-          <div>
-          <label for="field-sortGames">Sort games by: </label>
-          <select name="sortGames" id="field-sortGames">
-            <option value="viewersDesc">Viewers, highest first</option>
-            <option value="viewersAsc">Viewers, lowest first</option>
-            <option value="channelsDesc">Channels, highest first</option>
-            <option value="channelsAsc">Channels, lowest first</option>
-          </select>
-          </div>
-          
-          <div>
-          <input type="checkbox" name="mergeHosts" id="field-mergeHosts" />
-          <label for="field-mergeHosts">Group hosts who are hosting the same channel</label>
-          </div>
-          
-          <div>
-          <label for="field-videoLimit">Max number of videos (1-100): </label>
-          <input type="text" name="videoLimit" id="field-videoLimit" size="3" />
-          </div>
-          
-          <!-- Only Twitch is known to have a configurable video type. -->
-          <div>
-          <label for="field-videoType">Twitch video type: </label>
-          <select name="videoType" id="field-videoType">
-            <option value="highlight">Highlights</option>
-            <option value="archive">Past broadcasts</option>
-            <option value="all">All</option>
-          </select>
-          </div>
-          
-          <div>
-          <span>Section order:</span>
-          <div>
-            <span id="sectionOrder-0-text" class="sectionOrder-text"></span>
-            <input type="hidden" id="field-sectionOrder-0" />
-            <button type="button" name="01" class="sectionOrder-button">
-            ↔</button>
-            <span id="sectionOrder-1-text" class="sectionOrder-text"></span>
-            <input type="hidden" id="field-sectionOrder-1" />
-            <button type="button" name="12" class="sectionOrder-button">
-            ↔</button>
-            <span id="sectionOrder-2-text" class="sectionOrder-text"></span>
-            <input type="hidden" id="field-sectionOrder-2" />
-            <button type="button" name="23" class="sectionOrder-button">
-            ↔</button>
-            <span id="sectionOrder-3-text" class="sectionOrder-text"></span>
-            <input type="hidden" id="field-sectionOrder-3" />
-          </div>
+            <label for="field-sortStreams">Sort streams by: </label>
+            <select name="sortStreams" id="field-sortStreams">
+              <option value="viewersDesc">Viewers, highest first</option>
+              <option value="viewersAsc">Viewers, lowest first</option>
+              <option value="uptimeAsc">Uptime, shortest first</option>
+              <option value="uptimeDesc">Uptime, longest first</option>
+            </select>
           </div>
         </div>
         
@@ -217,7 +155,7 @@
               <p>If you want to really make sure you're not missing any
               particular streams, log into Nicovideo, join the communities that
               interest you, and go to
-              <a href="http://live.nicovideo.jp/my" target="_blank">this page</a>.</p>
+              <a href="https://live.nicovideo.jp/my" target="_blank">this page</a>.</p>
             </div>
           </div>
           <br /><br />

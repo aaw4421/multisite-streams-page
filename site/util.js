@@ -4,7 +4,7 @@ var Util = {
         /* Specify arguments of a function without actually calling
            that function yet.
            Source:
-           http://benalman.com/news/2010/09/partial-application-in-javascript/ */
+           https://benalman.com/news/2010/09/partial-application-in-javascript/ */
         var ap = Array.prototype,
             args = arguments;
     
@@ -35,7 +35,7 @@ var Util = {
     
     trimString: function(s) {
         /* Trim leading and trailing whitespace off of a string.
-        http://blog.stevenlevithan.com/archives/faster-trim-javascript */
+        https://blog.stevenlevithan.com/archives/faster-trim-javascript */
         return s.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
     },
     
@@ -68,7 +68,7 @@ var Util = {
         The return value is the index AFTER which the element would be
         inserted. -1 means at the beginning of the array.
         
-        Source: http://stackoverflow.com/a/18341744/ and /a/20261974/ */
+        Source: https://stackoverflow.com/a/18341744/ and /a/20261974/ */
         if (array.length === 0) {return -1;}
     
         start = start || 0;
@@ -92,7 +92,7 @@ var Util = {
         /* Insert element into the already-sorted array. comparer
         defines the sorting comparison method.
         
-        Source: http://stackoverflow.com/questions/1344500/ */
+        Source: https://stackoverflow.com/questions/1344500/ */
         
         array.splice(Util.sortedLocation(element, array, comparer) + 1, 0, element);
         return array;
@@ -104,10 +104,10 @@ var Util = {
     
     dateObjToTimeAgo: function(dateObj) {
         // Code adapted from:
-        // http://stackoverflow.com/a/12475270
+        // https://stackoverflow.com/a/12475270
         //
         // For more features (internationalization, auto refreshes),
-        // possibly try http://timeago.yarp.com/ (uses MIT license)
+        // possibly try https://timeago.yarp.com/ (uses MIT license)
         
         var time = dateObj.getTime();
         var currentTime = Date.now();

@@ -56,7 +56,7 @@ Config = {
 ```
 Replace `yourclientidhere` with the "Client ID" of the Developer Application you registered with Twitch.
 
-Replace `yourproxyserverhere` with the proxy server you'll use to handle Nicovideo and Cavetube requests. For example, if you use https://www.npmjs.com/package/cors-anywhere to run your own Node.js-powered proxy server, this will be `http://127.0.0.1:8080/` if you use the default IP and port. Your chosen proxy server must work by simply appending the request URL to a base URL (which is the proxyRequestServer value), and must return the request as-is instead of wrapping it (unlike YQL). If you are fine with using Yahoo's YQL or you don't have another proxy server to use, then you can leave out the `proxyRequestServer` line altogether (and don't forget to remove the comma to keep proper Javascript syntax).
+Replace `yourproxyserverhere` with the proxy server you'll use to handle Nicovideo and Cavetube requests. For example, if you use https://www.npmjs.com/package/cors-anywhere to run your own Node.js-powered proxy server, this will be `https://127.0.0.1:8080/` if you use the default IP and port. Your chosen proxy server must work by simply appending the request URL to a base URL (which is the proxyRequestServer value), and must return the request as-is instead of wrapping it (unlike YQL). If you are fine with using Yahoo's YQL or you don't have another proxy server to use, then you can leave out the `proxyRequestServer` line altogether (and don't forget to remove the comma to keep proper Javascript syntax).
 
 Then serve the `site` subdirectory in a webserver.
 
@@ -70,4 +70,4 @@ Thanks to:
 
 Hitakashi, for guiding me to the right API calls to use for Twitch and especially Hitbox.
 
-Cronikeys, for making http://speedrun.tv/nico, demonstrating the most workable avenue for getting Nicovideo streams at this time of writing.
+Cronikeys, for making https://speedrun.tv/nico, demonstrating the most workable avenue for getting Nicovideo streams at this time of writing.

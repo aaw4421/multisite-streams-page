@@ -33,7 +33,6 @@ body {
   margin: 0 10px;
 }
 #settings-button, #request-status {
-  display: inline-block;
   float: right;
 }
 #request-status > * {
@@ -69,15 +68,6 @@ body {
 }
 /* Bottom button bar */
 .ui-dialog .ui-dialog-buttonpane {
-  padding: 0;
-}
-
-.sectionOrder-text {
-  display: inline-block;
-  text-align: center;
-  width: 70px;
-}
-.sectionOrder-button {
   padding: 0;
 }
 
@@ -239,13 +229,6 @@ h2.section-header {
 }
 
 
-/* Game box for followed games */
-img.followed-game {
-  /* Ensure that this matches the container width */
-  width: 100%;
-}
-
-
 
 /* Text elements below/around a media thumbnail */ 
 
@@ -272,36 +255,6 @@ img.followed-game {
 }
 .media-container span.site-indicator.nico {
   background-color: rgb(160,160,160);
-}
-
-.media-container div.media-game {
-  font-size: 12.8px; font-size: 0.8rem;
-  color: rgb(160,160,160);
-  font-style: italic;
-}
-
-.media-container div.minor-text {
-  font-size: 12.8px; font-size: 0.8rem;
-  color: rgb(130,130,130);
-}
-
-.media-container div.video-view-count,
-.media-container div.video-duration {
-  position: absolute;
-  
-  background: black;
-  padding: 0 4px;
-  opacity: 0.75;
-  
-  font-size: 12px; font-size: 0.75rem;
-}
-.media-container div.video-view-count {
-  left: 4px;
-  top: 4px;
-}
-.media-container div.video-duration {
-  right: 4px;
-  top: 4px;
 }
 
 

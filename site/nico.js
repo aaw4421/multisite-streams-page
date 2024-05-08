@@ -15,7 +15,7 @@ var Nico = (function() {
     var maintenanceIndicator = "Nico is under maintenance";
     
     // Max number of streams we can get in a single API call.
-    // For search.solr, http://www59.atwiki.jp/nicoapi/pages/48.html says
+    // For search.solr, https://www59.atwiki.jp/nicoapi/pages/48.html says
     // the max is 149, but it's actually 100.
     var MAX_STREAMS_IN_CALL = 100;
     // Max number of times we'll try a particular API call before giving up.
@@ -281,7 +281,7 @@ var Nico = (function() {
         // To call Nico's API without getting a Cross Origin error, use CORS
         // via proxy.
         proxyAjax(
-            'http://api.ce.nicovideo.jp/liveapi/v1/video.search.solr',
+            'https://api.ce.nicovideo.jp/liveapi/v1/video.search.solr',
             params,
             callback
         );
@@ -379,7 +379,7 @@ var Nico = (function() {
             
             var d = {};
             
-            d.channelLink = 'http://live.nicovideo.jp/watch/' + vInfo.video.id;
+            d.channelLink = 'https://live.nicovideo.jp/watch/' + vInfo.video.id;
             if (vInfo.video._thumbnail_url !== undefined) {
                 d.thumbnailUrl = vInfo.video._thumbnail_url;
             }
@@ -492,7 +492,7 @@ var Nico = (function() {
             'id': noTypoCos.join(',')
         };
         proxyAjax(
-            'http://api.ce.nicovideo.jp/api/v1/community.array',
+            'https://api.ce.nicovideo.jp/api/v1/community.array',
             params,
             refreshCommunityLinks,
             false
@@ -549,7 +549,7 @@ var Nico = (function() {
             
             if (coToName.hasOwnProperty(co)) {
                 var $anchor = $(document.createElement('a'));
-                $anchor.attr('href', 'http://com.nicovideo.jp/community/'+co);
+                $anchor.attr('href', 'https://com.nicovideo.jp/community/'+co);
                 $anchor.attr('target', '_blank');
                 $anchor.text(coToName[co]);
                 
